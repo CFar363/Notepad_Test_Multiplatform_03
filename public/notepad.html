@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>Turbo Notepad 1994</title></head>
+<body>
+  <h2>Your Notepad</h2>
+  <textarea id="note" rows="10" cols="40"></textarea><br>
+  <button onclick="saveNote()">Save notes</button>
+  <a href="/logout">Logout</a>
+
+  <script>
+    async function loadNote() {
+      const res = await fetch('/note');
+      const data = await res.json();
+      document.getElementById('note').value = data.content || "";
+    }
+
+    async function saveNote() {
+      const content = document.getElementById('note').value;
+      await fetch('/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'content=' + encodeURIComponent(content)
+      });
+      alert('Notes saved');
+    }
+
+    loadNote();
+  </script>
+</body>
+</html>
