@@ -11,3 +11,10 @@
   <a href="login.html"><button type="button">Back</button></a>
 </body>
 </html>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("error")) {
+    alert("Username taken. Choose another.");
+  }
+</script>

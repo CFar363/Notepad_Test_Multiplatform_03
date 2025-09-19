@@ -30,7 +30,8 @@ app.post('/register', async (req, res) => {
 
   db.run(`INSERT INTO users (username, password) VALUES (?, ?)`, [username, hash], function(err) {
     if (err) {
-      return res.send('Username already taken.');
+      //username taken already
+      return res.redirect('/register.html?error=1');
     }
     db.run(`INSERT INTO notes (user_id, content) VALUES (?, ?)`, [this.lastID, ""]);
     res.redirect('/login.html');
