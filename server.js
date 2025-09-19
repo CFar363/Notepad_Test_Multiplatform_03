@@ -42,10 +42,14 @@ app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
   db.get(`SELECT * FROM users WHERE username = ?`, [username], async (err, user) => {
-    if (!user) return res.send('Invalid login.');
+    if (!user) {
+      return res.redirect('/login.html?error=1');
+    }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.send('Invalid login.');
+    if (!match) {
+      return res.redirect('/login.html?error=1');
+    }
 
     req.session.userId = user.id;
     res.redirect('/notepad.html');
