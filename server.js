@@ -8,6 +8,12 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+
+app.get("/api/hello", (req, res) => {
+  res.json({ message: "this is the backend, hope you're up to date on your tetanus shots" });
+});
+
+
 app.use(session({
   secret: 'secret-key', // change in production
   resave: false,
